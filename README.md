@@ -18,7 +18,7 @@ The fine-tuned BLIP model significantly improved its performance on the remote s
 | Model | Split Used | BLEU Score |
 | :--- | :--- | :--- |
 | Base BLIP | **Validation** | 0.51 |
-| **Finetuned BLIP** (Best) | **Validation** | **0.56** | --->placeholder value
+| **Finetuned BLIP** (Best) | **Validation** | **0.56 (placeholder value)** |
 
 **Conclusion:** The BLIP model was chosen over ViT-GPT2 because it demonstrated a superior ability to capture **spatial context** and generate short, crisp captions, which is critical for interpreting complex remote sensing images.
 
