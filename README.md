@@ -1,5 +1,3 @@
----
-
 # 🛰️ RSICD: Remote Sensing Image Captioning with BLIP
 
 This project fine-tunes **BLIP (Bootstrapping Language–Image Pre-training)** on the **RSICD (Remote Sensing Image Captioning Dataset)** to generate clear, spatially aware captions for satellite and aerial imagery. Training is accelerated using Hugging Face’s `accelerate` library for efficient GPU utilization.
