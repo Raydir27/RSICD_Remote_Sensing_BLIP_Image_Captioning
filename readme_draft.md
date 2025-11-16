@@ -1,62 +1,85 @@
-## 🛰️ RSICD: Remote Sensing BLIP Image Captioning
+---
 
-This project focuses on **fine-tuning the BLIP (Bootstrapping Language-Image Pre-training) model** on the **RSICD (Remote Sensing Image Captioning Dataset)** to generate accurate, context-aware, and concise captions for satellite and aerial imagery. The training process was optimized for high-performance using the Hugging Face $\text{accelerate}$ library.
+# 🛰️ RSICD: Remote Sensing Image Captioning with BLIP
+
+This project fine-tunes **BLIP (Bootstrapping Language–Image Pre-training)** on the **RSICD (Remote Sensing Image Captioning Dataset)** to generate clear, spatially aware captions for satellite and aerial imagery. Training is accelerated using Hugging Face’s `accelerate` library for efficient GPU utilization.
 
 ---
 
-### 💡 Approach and Key Results
+## 🌐 Overview
 
-#### Model Selection & Data
-
-| Component | Details | Rationale/Context |
-| :--- | :--- | :--- |
-| **Model** | $\text{Salesforce/blip-image-captioning-base}$ | Selected for its **superior capability in capturing spatial context** and generating short, crisp, fact-based captions. |
-| **Dataset** | $\text{rsicd}$ from Hugging Face | Used the $\text{train}$ and $\text{valid}$ splits for fine-tuning and the $\text{test}$ split for final parameter testing. |
-| **Custom Implementation** | $\text{CustomDataset}$ classes | Implemented to efficiently handle the **multiple captions** provided for each image in the RSICD dataset, ensuring full textual context utilization. |
-
-#### Performance (BLEU Score)
-
-The fine-tuned BLIP model shows a **significant improvement** in capturing remote sensing features compared to the base model:
-
-| Model | Split Used | **BLEU Score** |
-| :--- | :--- | :--- |
-| **Base BLIP** | Validation | **0.51** |
-| **Finetuned BLIP (Best)** | Validation | **0.56** |
+Remote sensing images demand a model that notices subtle geometric and land-use cues: the texture of farmland, the density of buildings, or the meandering of a river cutting through terrain. BLIP already excels at concise, factual descriptions. With fine-tuning on RSICD, the model adapts to the particular “visual language” of remote sensing.
 
 ---
 
-### 🛠️ Training Optimization and Hyperparameters
+## 🔍 Approach
 
-The entire training process was executed using the $\text{accelerate}$ library to **minimize runtime** and **maximize GPU resource utilization**, enabling fast, checkpointed training within a notebook environment.
+### Model & Dataset
 
-#### Key Training Parameters
-
-| Parameter | Value | Rationale |
-| :--- | :--- | :--- |
-| **Learning Rate** | $5e-7$ | **Very low** to prevent catastrophic forgetting of the base model's strong representations, allowing for stable and precise fine-tuning to the remote sensing domain. |
-| **Optimizer** | $\text{AdamW}$ | Chosen for its **robust performance** in deep learning fine-tuning, effectively leveraging training metrics. |
-| **Scheduler** | $\text{ReduceLROnPlateau}$ | Dynamically reduces the learning rate when validation loss plateaus, acting as a form of **early stopping regularization** to prevent overfitting. |
-| **Number of Epochs** | 5 | Necessary due to the low learning rate, ensuring **sufficient iterations** for the model to take small, precise steps and fully adapt the weights without destabilizing pre-trained knowledge. |
-| **Efficiency Gain** | **Mixed Precision (fp16)** | Using $\text{accelerate}$ with Mixed Precision **dropped the training time per epoch from $\sim 4$ hours to $\sim 1$ hour**. |
-
-#### Code Details
-
-* **Training Notebook:** $\text{rsicd-blip-training.ipynb}$
-* Uses $\text{accelerate.notebook\_launcher}$ for optimal utilization of GPU resources.
+| Component            | Details                                 | Notes                                                                            |
+| -------------------- | --------------------------------------- | -------------------------------------------------------------------------------- |
+| **Model**            | `Salesforce/blip-image-captioning-base` | Strong spatial reasoning, robust pretrained vision–language encoder–decoder.     |
+| **Dataset**          | `rsicd` (Hugging Face)                  | Standard train/validation/test splits used for fine-tuning and final evaluation. |
+| **Dataset Handling** | Custom PyTorch `Dataset` classes        | Designed to use *all available captions* per image for richer supervision.       |
 
 ---
 
-### 🔗 Project Links
+## 📈 Results
 
-| Resource | Link |
-| :--- | :--- |
-| **Finetuned Model** | Github/Hugginface link of model coming soon... |
-| **Kaggle Notebooks** | $\text{Training Notebook}$ $\text{Testing Notebook}$ |
+Fine-tuning produced consistent improvements over the base BLIP model, particularly for landscape structure and object-density descriptions.
+
+| Model                            | Split      | BLEU Score |
+| -------------------------------- | ---------- | ---------- |
+| **Base BLIP**                    | Validation | **0.51**   |
+| **Fine-tuned BLIP (best epoch)** | Validation | **0.56**   |
+
+The gain may look incremental, but in remote sensing captioning—even small BLEU improvements often correspond to noticeably clearer and more accurate descriptions.
 
 ---
 
-### 📜 License
+## ⚙️ Training Setup
 
-This code is released under the **Apache License 2.0**.
+The training pipeline uses `accelerate` for mixed-precision execution and multi-GPU adaptability while keeping the notebook workflow lightweight.
 
-> Note: The underlying BLIP model weights are subject to their original Salesforce Research license. Please refer to the Hugging Face model card for details.
+### Key Hyperparameters
+
+| Parameter         | Value             | Explanation                                                                 |
+| ----------------- | ----------------- | --------------------------------------------------------------------------- |
+| **Learning Rate** | `5e-7`            | Extremely low to avoid erasing BLIP’s pretrained visual–language structure. |
+| **Optimizer**     | AdamW             | Stable and well-behaved for transformer fine-tuning.                        |
+| **Scheduler**     | ReduceLROnPlateau | Automatically lowers LR when validation loss stalls.                        |
+| **Epochs**        | 5                 | Enough time for meaningful adjustments without overfitting.                 |
+| **Precision**     | fp16              | Reduced epoch time from ~4 hours → ~1 hour (single GPU).                    |
+
+### Implementation Notes
+
+* Training via `accelerate.notebook_launcher` ensured clean kernel memory usage and faster iteration.
+* Full code is available in the notebook below.
+
+---
+
+## 📓 Notebooks
+
+| Notebook              | Link                                                                                                                         |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Training Notebook** | [https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training](https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training) |
+| **Testing Notebook**  | [https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training](https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training) |
+
+*(Testing and training links currently point to the same notebook; update once separated.)*
+
+---
+
+## 📦 Model
+
+| Resource                     | Status                                 |
+| ---------------------------- | -------------------------------------- |
+| **Fine-tuned Model Weights** | Coming soon (GitHub/Hugging Face link) |
+
+---
+
+## 📄 License
+
+This project is released under **Apache License 2.0**.
+BLIP’s pretrained weights follow the original Salesforce Research license—refer to the model card on Hugging Face for details.
+
+---
