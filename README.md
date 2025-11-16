@@ -61,7 +61,7 @@ The training pipeline uses `accelerate` for mixed-precision execution and multi-
 | Notebook              | Link                                                                                                                         |
 | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | **Training Notebook** | [https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training](https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training) |
-| **Testing Notebook**  | [https://www.kaggle.com/code/rajarshi2712/rsicd-blip-training](https://www.kaggle.com/code/rajarshi2712/rsicd-blip-testing) |
+| **Testing Notebook**  | [https://www.kaggle.com/code/rajarshi2712/rsicd-blip-testing](https://www.kaggle.com/code/rajarshi2712/rsicd-blip-testing) |
 
 ---
 
