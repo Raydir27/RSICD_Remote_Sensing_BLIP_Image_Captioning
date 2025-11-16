@@ -10,14 +10,19 @@ This project focuses on optimising the training process using the Hugging Face `
 
 ### Model & Data
 * **Model:** [`Salesforce/blip-image-captioning-base`](https://huggingface.co/Salesforce/blip-image-captioning-base)
-* **Dataset:** [`rsicd`](https://huggingface.co/datasets/arampacha/rsicd) from Hugging Face. The **`train`** and **`valid`** splits were used for fine-tuning and evaluation.
+* **Dataset:** [`rsicd`](https://huggingface.co/datasets/arampacha/rsicd) from Hugging Face. The **`train`** and **`valid`** splits were used for fine-tuning and evaluation. Tested them on the test split and further tuned the training parameters
+- learning_rate = 5e-7 is the best for this purpose as it allows the model to understand the mapping properly, but takes a long time to train the model (higher no. of epochs required for effective training of model)
+- **AdamW** optimizer used due to it's inherent advantage of effectively optimizing the model based on the training metrics and loss
+- **ReduceLROnPlateau** scheduler used to prevent overfitting (reduces learning_rate when the validation loss plateaus)
+- num_epochs = 5
+- Custom Dataset classes were defined to retrieve data during training
 
 ### Performance (BLEU Score)
 The fine-tuned BLIP model significantly improved its performance on the remote sensing data compared to its base capabilities:
 
 | Model | Split Used | BLEU Score |
 | :--- | :--- | :--- |
-| Base BLIP | **Validation** | 0.51 |
+| Base BLIP | **Validation** | 0.51 (placeholder value)|
 | **Finetuned BLIP** (Best) | **Validation** | **0.56 (placeholder value)** |
 
 **Conclusion:** The BLIP model was chosen over ViT-GPT2 because it demonstrated a superior ability to capture **spatial context** and generate short, crisp captions, which is critical for interpreting complex remote sensing images.
