@@ -75,7 +75,8 @@ The training pipeline uses `accelerate` for mixed-precision execution and multi-
 
 ## 📄 License
 
-This project is released under **Apache License 2.0**.
+This project is released under **MIT License**.
+
 BLIP’s pretrained weights follow the original Salesforce Research license—refer to the model card on Hugging Face for details.
 
 ---
