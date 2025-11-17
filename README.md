@@ -43,7 +43,7 @@ The training pipeline utilises `accelerate` for mixed-precision execution and mu
 
 | Parameter         | Value             | Explanation                                                                 |
 | ----------------- | ----------------- | --------------------------------------------------------------------------- |
-| **Learning Rate** | `5e-7`            | Extremely low to avoid erasing BLIP’s pretrained visual–language structure. |
+| **Learning Rate** | `5e-5`            | Extremely low to avoid erasing BLIP’s pretrained visual–language structure. |
 | **Optimiser**     | AdamW             | Stable and well-behaved for transformer fine-tuning.                        |
 | **Scheduler**     | ReduceLROnPlateau | Automatically lowers LR when validation loss stalls.                        |
 | **Epochs**        | 5                 | Enough time for meaningful adjustments without overfitting.                 |
