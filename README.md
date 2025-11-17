@@ -67,9 +67,9 @@ The training pipeline uses `accelerate` for mixed-precision execution and multi-
 
 ## 📦 Model
 
-| Resource                     | Status                                 |
+| Resource                     | Link                                 |
 | ---------------------------- | -------------------------------------- |
-| **Fine-tuned Model Weights** | Coming soon (GitHub/Hugging Face link) |
+| **Fine-tuned Model Weights** | https://www.kaggle.com/models/rajarshi2712/rsicd-blip-image-caption-fine-tuned |
 
 ---
 
