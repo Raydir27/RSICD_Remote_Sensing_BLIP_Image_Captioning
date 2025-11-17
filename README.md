@@ -47,7 +47,7 @@ The training pipeline uses `accelerate` for mixed-precision execution and multi-
 | **Optimizer**     | AdamW             | Stable and well-behaved for transformer fine-tuning.                        |
 | **Scheduler**     | ReduceLROnPlateau | Automatically lowers LR when validation loss stalls.                        |
 | **Epochs**        | 5                 | Enough time for meaningful adjustments without overfitting.                 |
-| **Precision**     | fp16              | Reduced epoch time from ~4 hours → ~1 hour (single GPU).                    |
+| **Precision**     | fp16              | Reduced epoch time from ~4 hours → ~2 hour (single Nvidia P100 16GB GPU).                    |
 
 ### Implementation Notes
 
